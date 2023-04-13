@@ -9,24 +9,26 @@ struct Tarea{
     int duracion;
 }typedef Tarea;
 
-Tarea ** crearTareas (int cantidad);
+Tarea** crearTareas (int cantidad);
 void cargarTareas(Tarea **tareas, int cantidad);
 void mostrarTareas(Tarea **tareas, int cantidad);
 
-void main (){
+int main (){
     int cantidad = 0;
+    Tarea ** tareasPendientes/* , tareasRealizadas */;
     printf("Ingrese la cantidad de tareas a realizar: ");
     scanf("%d", &cantidad);
     fflush(stdin);
-    Tarea **tareasPendientes = crearTareas(cantidad);
-    Tarea **tareasRealizadas = crearTareas(cantidad);
+    tareasPendientes = crearTareas(cantidad);
+    /* tareasRealizadas = crearTareas(cantidad); */
     cargarTareas(tareasPendientes, cantidad);
     mostrarTareas(tareasPendientes, cantidad);
-
+    return 1;
 }
 
 Tarea ** crearTareas (int cantidad){
-    Tarea **tareas = malloc(cantidad * sizeof(Tarea*));
+    Tarea **tareas;
+    tareas = (Tarea**) malloc(cantidad * sizeof(Tarea*));
     for (int  i = 0; i < cantidad; i++){
         tareas[i] = NULL;
     }
@@ -39,11 +41,13 @@ void cargarTareas(Tarea **tareas, int cantidad){
         tareas[i]->tareaId = i+1;
         printf("Ingresar la descripcion de la tarea: ");
         gets(descPrincipal);
-        tareas[i]->descripcion = malloc(sizeof(char) * (strlen(descPrincipal)));
-        strcpy(tareas[i]->descripcion, descPrincipal);
         fflush(stdin);
+        tareas[i]->descripcion = malloc(sizeof(char) * (strlen(descPrincipal)+1));
+        strcpy(tareas[i]->descripcion, descPrincipal);
+
         printf("Ingrese la duracion de la tarea (Entre 10 - 100): ");
-        scanf("%d", tareas[i]->duracion);
+        scanf("%d", &(tareas[i]->duracion));
+        fflush(stdin);
     }
 }
 void mostrarTareas(Tarea **tareas, int cantidad){
