@@ -127,12 +127,11 @@ void liberarMemoria(Tarea ** tareasPendientes, Tarea ** tareasRealizadas, int ca
 }
 
 void buscarTarea(Tarea ** tareasPendientes, Tarea ** tareasRealizadas , int cantidad){
-    int id = 0, condicion;
+    int id = 0, condicion = 0;
     printf("Ingrese el id a buscar: ");
     scanf("%d", &id);
     fflush(stdin);
     for (int i = 0; i < cantidad; i++){
-        condicion = 2;
         if (tareasPendientes[i] != NULL){
             if (id == (tareasPendientes[i]->tareaId)){
                 printf("\n-----Tarea [%d]-----\n", tareasPendientes[i]->tareaId);
@@ -148,8 +147,8 @@ void buscarTarea(Tarea ** tareasPendientes, Tarea ** tareasRealizadas , int cant
                 condicion = 1;
             }
         }
-        if (condicion == 0){
-            printf("\nNo se encontro una tarea con el id ingresado");
-        }
+    }
+    if (condicion == 0){
+        printf("\nNo se encontro una tarea con el id ingresado");
     }
 }
