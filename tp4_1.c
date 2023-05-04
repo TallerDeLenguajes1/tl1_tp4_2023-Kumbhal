@@ -28,7 +28,7 @@ void main (){
     tareasPendientes = crearTareas(cantidad);
     tareasRealizadas = crearTareas(cantidad);
     cargarTareas(tareasPendientes, cantidad);
-    while (opcion != 4){
+    while (opcion != 5){
         mostrarMenu();
         scanf("%d", &opcion);
         fflush(stdin);
