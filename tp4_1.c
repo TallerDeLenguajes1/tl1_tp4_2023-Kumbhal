@@ -44,7 +44,7 @@ void main (){
 
 void mostrarMenu(){
     printf("\n==============MENU PRINCIPAL==============\n");
-    printf("\nIngrese una opcion: \n1- Modificar estado\n2- Mostrar tareas\n3- Salir");
+    printf("\nIngrese una opcion: \n1- Modificar estado\n2- Mostrar tareas\n3- Buscar tarea\n4- Salir");
 }
 
 Tarea ** crearTareas (int cantidad){
@@ -123,5 +123,33 @@ void liberarMemoria(Tarea ** tareasPendientes, Tarea ** tareasRealizadas, int ca
             free(tareasRealizadas[i]->descripcion);
             free(tareasRealizadas[i]);
         }
+    }
+}
+
+void buscarTarea(Tarea ** tareasPendientes, Tarea ** tareasRealizadas , int cantidad){
+    int condicion = 0;
+    char palabraBuscar[CANT];
+    printf("Ingrese la palabra a buscar: ");
+    gets(palabraBuscar);
+    fflush(stdin);
+    for (int i = 0; i < cantidad; i++){
+        if (tareasPendientes[i] != NULL){
+            if (strstr(tareasPendientes[i]->descripcion, palabraBuscar)){
+                printf("\n-----Tarea [%d]-----\n", tareasPendientes[i]->tareaId);
+                printf("\nDescripcion de tarea: %s", tareasPendientes[i]->descripcion);
+                printf("\nDuracion de tarea: %d\n", tareasPendientes[i]->duracion);
+                condicion = 1;
+            }
+        }else if(tareasRealizadas[i] != NULL){
+            if (strstr(tareasRealizadas[i]->descripcion, palabraBuscar)){
+                printf("\n-----Tarea [%d]-----\n", tareasRealizadas[i]->tareaId);
+                printf("\nDescripcion de tarea: %s", tareasRealizadas[i]->descripcion);
+                printf("\nDuracion de tarea: %d\n", tareasRealizadas[i]->duracion);
+                condicion = 1;
+            }
+        }
+    }
+    if (condicion == 0){
+        printf("\nNo se encontro una tarea con el id ingresado");
     }
 }
